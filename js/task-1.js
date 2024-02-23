@@ -4,7 +4,7 @@ console.log('Number of categories:', positionList.length);
 
 positionList.forEach(element => {
   const title = element.firstElementChild;
-  console.log('Category:',title.innerHTML)
+  console.log('Category:',title.textContent)
 
   const list = element.lastElementChild.children;
   console.log('Elements:',list.length)

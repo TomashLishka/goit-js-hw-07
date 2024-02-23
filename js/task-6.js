@@ -1,44 +1,43 @@
 function getRandomHexColor() {
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
 }
 
-const controls = document.querySelector('controls');
+const controls = document.querySelector('#controls');
 const inputNumberEl = document.querySelector('[type="number"]');
 const createBtnEl = document.querySelector('button[data-create]');
 const destroyBtnEl = document.querySelector('button[data-destroy]');
 const divBoxesEl = document.getElementById('boxes');
 
-divBoxesEl.style.display = 'flex';
-divBoxesEl.style.flexWrap = 'wrap';
-divBoxesEl.style.alignItems = 'center';
-divBoxesEl.style.marginTop = '30px';
 
 createBtnEl.addEventListener('click', () => {
+    inputNumberEl.focus();
     if (
       Number(inputNumberEl.value.trim()) > Number(inputNumberEl.max) ||
       Number(inputNumberEl.value.trim()) < Number(inputNumberEl.min)
     ) {
       alert('Please enter number from 1 to 100');
     } else {
-      createBoxes(inputNumberEl.value.trim());
+      createBoxes(inputNumberEl.value);
+      inputNumberEl.value = '';
     }
-    inputNumberEl.value = '';
+    
   });
+
+let size = 0;
+let div;
   
-destroyBtnEl.addEventListener('click', destroyBoxes);
-  
-function destroyBoxes() {
-    inputNumberEl.value = '';
-    divBoxesEl.innerHTML = '';
-}
+destroyBtnEl.addEventListener('click', () => {
+        inputNumberEl.value = '';
+        divBoxesEl.innerHTML = "";
+});
 
 function createBoxes(amount) {
-    let size = 30;
-    const boxesArr = [];
+    divBoxesEl.innerHTML = "";
+    size = 30;
     for (let i = 0; i < amount; i += 1) {
-      size += 10 * i;
-      const div = `<div class="item" style="display: block; margin-right: 30px; margin-bottom: 30px; background-color: ${getRandomHexColor()}; width: ${size}px; height: ${size}px;"></div>`;
-      boxesArr.push(div);
+      div = `<div class="item" style="display: block; margin-right: 30px; margin-bottom: 30px; background-color: ${getRandomHexColor()}; width: ${size}px; height: ${size}px;"></div>`;
+      divBoxesEl.insertAdjacentHTML('beforeend', div);
+      size += 10;
     }
-    divBoxesEl.insertAdjacentHTML('beforeend', boxesArr.join(''));
+    
 }

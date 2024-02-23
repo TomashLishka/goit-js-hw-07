@@ -9,7 +9,7 @@ function handleFormSubmit(e) {
   } else {
     const formData = {
       email: email.value,
-      password: password.value.replaceAll(" ", ""),
+      password: password.value.trim(),
     };
     console.log(formData);
     e.currentTarget.reset();
